@@ -16,7 +16,12 @@ func NewMySQLStorage(cfg mysql.Config) (*sql.DB, error) {
 	return db, nil
 }
 
+/** Docker MySQL
 
+docker run --name golang-db -e MYSQL_ROOT_PASSWORD=mypassword -p 3306:3306 mysql
+
+
+*/
 
 
 

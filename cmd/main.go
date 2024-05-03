@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"log"
 
 	"github.com/atiwat-r/golang-backend/cmd/api"
@@ -25,15 +26,28 @@ func main() {
 		ParseTime: true,
 	}
 	db, err := db.NewMySQLStorage(db_cfg)
-
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	initStorage(db)
+
 	server := api.NewAPIServer(":8080", db)
-	err := server.Run()
+	err = server.Run()
 
 	if (err != nil) {
 		log.Fatal(err)
 	}
+}
+
+
+
+
+func initStorage(db *sql.DB) {
+	err := db.Ping()
+	if (err != nil) {
+		log.Fatal(err)
+	}
+
+	log.Println("DB: Successfully Connected")
 }
